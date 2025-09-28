@@ -1,3 +1,5 @@
+<img width="1280" height="720" alt="My babies" src="https://github.com/user-attachments/assets/a54e3bcc-dfc6-41f7-a6df-971cb2e4f3dc" />
+
 **Employee Performance & Business Outcomes Dashboard**
 
 **Project Overview**

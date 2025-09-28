@@ -1,1 +1,44 @@
-# Employee-Performance
+**Employee Performance & Business Outcomes Dashboard**
+
+**Project Overview**
+This project analyzes an employee performance dataset (~497k records, 7,500 employees) to uncover insights on attrition, engagement, compensation, and business outcomes. The final deliverable is a set of interactive Power BI dashboards.
+
+**Tools & Technologies**
+- Excel → Data cleaning & preprocessing
+- SQL / SQLite → Querying & analysis
+- Power BI → Dashboard design & visualization
+- DAX → KPI and calculated measures
+
+**Business Questions Answered**
+- How many employees left the company, and which departments had the most exits?
+- What is the average salary by job level and department?
+- Do training hours improve performance ratings?
+- Which managers lead the highest-performing teams?
+- Which stores consistently beat sales targets, and how does Net Promoter Score impact sales?
+- How does waste percentage affect profitability?
+
+**Dashboards Developed**
+- Workforce Overview: Attrition by department, education, and employment type.
+- Employee Performance & Engagement: Ratings trend, manager impact, training vs performance.
+- Compensation & Career Growth: Salary levels, promotions, performance pre/post salary increase.
+- Store & Business Outcomes: Sales, customer satisfaction, profitability vs waste.
+
+**Key Insights**
+- Attrition rate: 20% (1,491 exits).
+- Operations had the highest turnover.
+- Training hours strongly correlated with better performance.
+- Salary increases led to improved performance ratings.
+- Stores with higher Net Promoter Scores consistently achieved higher sales.
+- Waste reduction has a direct link to profitability.
+
+**Deliverables**
+- SQL queries used for analysis
+- Power BI dashboards
+- Report documenting methodology, insights, and recommendations
+
+**Future Work**
+- Optimize SQL Server performance for large datasets.
+- Extend dashboards with predictive analytics (e.g., attrition forecasting).
+
+👤 Author: Favour Ogundipe
+🔗 Connect on LinkedIn: www.linkedin.com/in/favour-ogundipe

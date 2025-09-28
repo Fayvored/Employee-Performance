@@ -41,6 +41,7 @@ This project analyzes an employee performance dataset (~497k records, 7,500 empl
 - Extend dashboards with predictive analytics (e.g., attrition forecasting).
 
 👤 Author: Favour Ogundipe
-🔗 Connect on LinkedIn: www.linkedin.com/in/favour-ogundipe
+
+🔗 [Connect on LinkedIn](www.linkedin.com/in/favour-ogundipe)
 
 [Read Full Report Here](https://fayvoredd.medium.com/employee-performance-business-outcomes-analytics-5769aa83fdcf)

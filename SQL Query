@@ -1,0 +1,216 @@
+--How many employees left the company?
+SELECT COUNT(*) AS Employees_Left
+FROM employees
+WHERE Exit_Date IS NOT NULL;
+
+Select COUNT(*)
+FROM Employees
+
+-- Which department has the most people leaving?
+SELECT department, Count (*) AS Employee_Left
+From Employees
+WherE exit_date IS NOT NULL
+GROUP BY department
+Order by employee_id
+Limit 1;
+
+--What is the average salary by job level?
+SELECT job_level, AVG(base_salary_annual) AS Average_Salary
+FROM Employees
+Group by job_level
+Order by AVG(base_salary_annual);
+
+--Create a chart showing salary differences between departments
+SELECT department,
+       AVG(Base_Salary_Annual) AS Avg_Salary
+FROM Employees
+GROUP BY Department;
+
+-- Which months have the highest employee performance ratings?
+SELECT year_month, AVG(performance_rating) AS avg_rating
+FROM MonthlyPerformance
+GROUP BY year_month
+ORDER BY avg_rating DESC
+LIMIT 5;
+
+--Who are the top 10 managers based on their team's average performance scores?
+SELECT Employees.Manager_Id, Employees.Manager_Name, AVG(MonthlyPerformance.Performance_Rating) 
+AS Avg_performance_score
+From MonthlyPerformance
+join Employees
+ON Employees.Employee_Id = MonthlyPerformance.Employee_Id
+Group by Employees.Manager_Id,  Employees.Manager_Name
+Order by Avg_performance_score
+Limit 10;
+
+--Do employees who get more training hours have better performance ratings?
+SELECT training_hours, AVG(performance_rating) Avg_Performance_Rating
+FROM MonthlyPerformance
+Group by training_hours
+ORDER by training_hours DESC 
+Limit 10;
+
+--Which 5 stores have the highest sales?
+SELECT Stores.Store_Name, Stores.Store_Type, SUM(BusinessOutcomes.Sales_Actual)
+AS Total_Sales_Actual
+FROM BusinessOutcomes
+JOIN Stores
+ON Stores.Store_Id = BusinessOutcomes.Store_Id
+GROUP BY Stores.Store_Name, Stores.Store_Type
+ORDER BY BusinessOutcomes.Sales_Actual DESC
+Limit 5;
+
+--What is the average employee satisfaction score by department?
+SELECT Employees.Department, AVG(MonthlyPerformance.Employee_Satisfaction)
+AS Avg_Monthly_Performance_Score
+FROM MonthlyPerformance
+JOIN Employees
+oN Employees.Employee_Id = MonthlyPerformance.Employee_Id
+GROUP BY Employees.Department
+ORDER BY Avg_Monthly_Performance_Score desc;
+
+--Compare the productivity index across different job roles.
+select Employees.Job_Role, Roles_KPI.Productivity_Index
+FROM Roles_KPI
+JOIN Employees
+ON Employees.Employee_Id = Roles_KPI.Employee_Id;
+
+--Which employees are most likely to get promoted based on their performance and satisfaction scores?
+SELECT employee_id, performance_rating, AVG(employee_satisfaction) 
+AS Avg_Employee_Satisfaction
+FROM MonthlyPerformance
+Group by performance_rating
+order by performance_rating DESC;
+
+--Which employees are most likely to get promoted based on their performance and satisfaction scores?
+SELECT employee_id, employee_satisfaction, AVG(performance_rating)
+AS Avg_Employee_Satisfaction
+FROM MonthlyPerformance
+Group by employee_satisfaction
+order by employee_satisfaction DESC;
+
+--What is the relationship between employee age and performance rating? 
+SELECT CASE 
+         WHEN Employees.Age < 30 THEN 'Under 30'
+         WHEN Employees.Age BETWEEN 30 and 39 Then '30s'
+         when Employees.Age BETWEEN 40 AND 49 THEN '40S'
+         ELSE '50+'
+       END AS Age_Group,
+       AVG(MonthlyPerformance.Performance_Rating)
+       AS Avg_Performance_Rating
+FROM MonthlyPerformance
+JOIN Employees 
+  ON Employees.Employee_Id = MonthlyPerformance.Employee_Id
+group by CASE
+WHEN Employees.Age < 30 THEN 'Under 30'
+         WHEN Employees.Age BETWEEN 30 and 39 Then '30s'
+         when Employees.Age BETWEEN 40 AND 49 THEN '40S'
+         ELSE '50+'
+       END
+ORDER BY Age_Group;
+
+-- Distribution of employees by education level
+SELECT 
+    Education_Level,
+    COUNT(*) AS Employee_Count,
+    ROUND(COUNT(*) * 100.0 / (SELECT COUNT(*) FROM employees), 2) AS Percentage
+FROM employees
+GROUP BY Education_Level
+ORDER BY Employee_Count DESC;
+
+--How many employees are part-time vs full-time, and how do their performance scores compare?
+SELECT
+COUNT(*) AS Employee_Count,
+Employees.Employment_Type,
+MonthlyPerformance.performance_rating,
+ROUND(COUNT(*) * 100.0/ (SELECT COUNT(*) FROM Employees), 2) AS Percentage
+From MonthlyPerformance
+join Employees
+ON Employees.Employee_Id = MonthlyPerformance.Employee_Id
+Group by employment_type
+Order by Employee_Count desc;
+
+--What is the total compensation cost per department (salary + benefits + bonuses)?
+SELECT 
+DEPARTMENT,
+SUM(Employees.Base_Salary_Annual + MonthlyPerformance.Monthly_Bonus + MonthlyPerformance.Benefits_Cost) 
+AS Total_Compensation
+From MonthlyPerformance
+JOIN Employees
+ON Employees.Employee_Id = MonthlyPerformance.Employee_Id
+GROUP BY DEPARTMENT 
+ORDER BY Total_Compensation DESC ;
+
+--Do employees who receive salary increases also show improved performance over time?
+SELECT 
+Employees.Employee_Id, 
+Employees.Department,
+CASE 
+WHEN MonthlyPerformance.salary_increase_flag = 'True' THEN 'After_Increase'
+ELSE 'Before_Increase'
+END AS Salary_Status,
+AVG(MonthlyPerformance.Performance_Rating) AS Avg_Performance_Rating
+From Employees
+join MonthlyPerformance
+ON Employees.Employee_Id = MonthlyPerformance.Employee_Id
+Group by Employees.Employee_Id
+Order by Employees.Employee_Id DESC;
+
+-- Which store has the highest average salary expense?
+Select Stores.Store_Name, AVG(Employees.Base_Salary_Annual) AS Avg_Salary
+fROM Employees
+join Stores
+on Employees.Store_Id = Stores.Store_Id
+Group by store_name
+Order by Avg_Salary DESC 
+Limit 1;
+
+--Which stores consistently beat their sales targets over time?
+SELECT 
+Stores.Store_Name,
+COUNT(*) AS TOTAL_Months, 
+SUM(Case when BusinessOutcomes.sales_actual > BusinessOutcomes.sales_target then 1 else 0 END)
+ AS Month_Beating_Target,
+CAST(SUM(Case when BusinessOutcomes.sales_actual > BusinessOutcomes.sales_target
+         then 1 else 0 end) * 100.0/ count(*) AS DECIMAL(5,2)) AS Percent_Beating_Target
+         From BusinessOutcomes
+         join Stores
+         on Stores.Store_Id = BusinessOutcomes.Store_Id
+         group by Stores.Store_Name
+         Order by Percent_Beating_Target DESC;
+         
+--What is the relationship between NPS Score and Sales Performance?
+SELECT 
+Stores.Store_Name,
+avg(BusinessOutcomes.Net_Promoter_Score) AS Avg_NPS,
+AVG(BusinessOutcomes.Sales_Actual - BusinessOutcomes.Sales_Target) AS Avg_Sales_Above_Target
+from BusinessOutcomes
+join Stores
+on BusinessOutcomes.Store_Id = Stores.Store_Id
+Group by Stores.Store_Name
+Order by Avg_NPS DEsc;
+
+--Stores with the highest waste percentage & impact on profitability
+SELECT 
+Stores.Store_Name,
+avg(BusinessOutcomes.Waste_Percentage) AS Avg_Waste,
+AVG(BusinessOutcomes.Sales_Actual - BusinessOutcomes.Sales_Target) AS Avg_Profitability
+from BusinessOutcomes
+join Stores
+on BusinessOutcomes.Store_Id = Stores.Store_Id
+Group by Stores.Store_Name
+Order by Avg_Profitability DEsc;
+
+--Customer Satisfaction by storetype
+SELECT
+Stores.Store_Type,
+AVG(BusinessOutcomes.customer_satisfaction) AS Avg_Customer_Satisfaction
+From BusinessOutcomes
+join Stores
+on BusinessOutcomes.Store_Id = Stores.Store_Id
+Group by store_type
+Order by Avg_Customer_Satisfaction DESC;
+
+Select
+AVG(base_salary_annual) AS Avg_Salary 
+From Employees

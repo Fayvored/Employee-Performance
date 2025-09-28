@@ -6,7 +6,7 @@ This project analyzes an employee performance dataset (~497k records, 7,500 empl
 **Tools & Technologies**
 - Excel → Data cleaning & preprocessing [Excel Dataset](https://docs.google.com/spreadsheets/d/1XbWVnvYdHf_c_98yImZjWoCEsuXCsY8-/edit?usp=sharing&ouid=105166239657745396361&rtpof=true&sd=true)
 - SQL / SQLite → Querying & analysis [SQL Queries](https://drive.google.com/file/d/1QozKS6g61RcMeIz_j3MSII1RxGj0l77z/view?usp=sharing)
-- Power BI → Dashboard design & visualization [View Dashboard Here](https://drive.google.com/file/d/1s3qH2yvebH7daJ_c4nCBmlKn8-_INhXJ/view?usp=sharing
+- Power BI → Dashboard design & visualization [View Dashboard Here](https://drive.google.com/file/d/1s3qH2yvebH7daJ_c4nCBmlKn8-_INhXJ/view?usp=sharing)
 - DAX → KPI and calculated measures
 
 **Business Questions Answered**
